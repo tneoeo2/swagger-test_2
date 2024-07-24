@@ -6,15 +6,39 @@ info:
 host: api.example.com
 basePath: /v1
 schemes:
-  - https
+  - "https"
+  - "http"
 paths:
   /:
     get:
-      summary: Root
-      operationId: root__get
+      operationId: msg__get
       responses:
         '200':
           content:
             application/json:
               schema: {}
           description: Successful Response
+      summary: Msg
+  /hello/{name}:
+    post:
+      operationId: hello_hello__name__post
+      parameters:
+      - in: path
+        name: name
+        required: true
+        schema:
+          title: Name
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Hello
